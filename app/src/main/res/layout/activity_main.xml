@@ -16,16 +16,18 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!--Logo -->
+        <!--Logo-->
         <ImageView
             android:id="@+id/ivLogo"
             android:layout_width="400dp"
             android:layout_height="400dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/logo_tsj2"
+            android:src="@drawable/logo_tsj"
             android:contentDescription="Logo_TSJ"
             android:scaleType="fitCenter"/>
+
+
 
         <!--título-->
         <TextView
