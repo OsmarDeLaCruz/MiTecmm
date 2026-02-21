@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0F1A"
+    tools:context=".ui.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!--Logo -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/logo_tsj2"
+            android:contentDescription="Logo_TSJ"
+            android:scaleType="fitCenter"/>
+
+        <!--título-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tecnológico Superior de Jalisco"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="40dp">
+
+            <!--Mapa-->
+            <Button
+                android:id="@+id/btnMapa"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="MAPA"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/boton_morado"
+                android:backgroundTint="#6A1B9A"
+                android:layout_marginEnd="16dp"/>
+            <!--Profesores-->
+            <Button
+                android:id="@+id/btnProfesores"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="PROFESORES"
+                android:textColor="#FFC107"
+                android:background="@drawable/boton_borde_amarillo"
+                android:padding="10dp"
+                android:backgroundTint="@null"/>
+        </LinearLayout>
+
+        <!--Avisos -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Avisos Importantes"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- RecyclerView Avisos -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAvisos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:clipToPadding="false"/>
+
+        <!-- Footer -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="© Tecmm"
+            android:gravity="center"
+            android:layout_marginTop="40dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
