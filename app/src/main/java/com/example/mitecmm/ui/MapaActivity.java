@@ -67,9 +67,9 @@ public class MapaActivity extends AppCompatActivity {
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     dpToPx(120), dpToPx(90));
-            params.setMargins(dpToPx(6), 0, dpToPx(6), 0);
-            card.setLayoutParams(params);
-            card.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
+                    params.setMargins(dpToPx(6), 0, dpToPx(6), 0);
+                    card.setLayoutParams(params);
+                    card.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
 
             //nombre
             TextView tvNombre = new TextView(this);

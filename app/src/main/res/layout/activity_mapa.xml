@@ -9,45 +9,47 @@
 
     <!--Panel izquierdo-->
     <LinearLayout
-        android:layout_width="140dp"
+        android:layout_width="130dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_marginTop="40dp"
+        android:padding="8dp"
         android:background="#0B0F1A">
 
         <EditText
             android:id="@+id/etBuscar"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Buscar Salón..."
-            android:textColorHint="#7B3FE4"
+            android:layout_height="40dp"
+            android:hint="Buscar..."
+            android:textColorHint="#666666"
             android:textColor="#FFFFFF"
-            android:background="@drawable/boton_morado"
-            android:paddingStart="12dp"
+            android:textSize="12sp"
+            android:background="#1E2235"
+            android:paddingStart="8dp"
             android:inputType="text"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="8dp"/>
 
         <!--spinners-->
         <Spinner
             android:id="@+id/spinnerEdificios"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/boton_morado"
-            android:layout_marginBottom="12dp"/>
+            android:layout_height="40dp"
+            android:background="#1E2235"
+            android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerPiso"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/boton_morado"
-            android:layout_marginBottom="12dp"/>
+            android:layout_height="40dp"
+            android:background="#1E2235"
+            android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerTipoEdificio"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/boton_morado"
-            android:layout_marginBottom="24dp"/>
+            android:layout_height="40dp"
+            android:background="#1E2235"
+            android:layout_marginBottom="16dp"/>
 
         <!--Info salón-->
         <LinearLayout
@@ -55,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/boton_morado"
-            android:padding="12dp"
+            android:background="#1E2235"
+            android:padding="8dp"
             android:visibility="gone">
 
             <TextView
@@ -64,15 +66,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="6dp"/>
 
             <TextView
                 android:id="@+id/tvTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#888888"
+                android:textSize="11sp"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -80,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#888888"
+                android:textSize="11sp"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -87,23 +91,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#888888"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="11sp"
+                android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerHorario"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:text="Ver Horario"
+                android:textSize="11sp"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#7B3FE4"
-                app:cornerRadius="25dp"/>
+                app:cornerRadius="18dp"/>
         </LinearLayout>
     </LinearLayout>
 
     <!--Area de mapa-->
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:fillViewport="true">
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -115,30 +123,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="24dp">
+                android:padding="16dp">
 
                 <!--Edificio A-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginEnd="48dp">
+                    android:layout_marginEnd="32dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="EDIFICIO A"
                         android:textColor="#7B3FE4"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:letterSpacing="0.2"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="12dp"/>
 
                     <LinearLayout
                         android:id="@+id/filaA1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="8dp"/>
 
                     <LinearLayout
                         android:id="@+id/filaA2"
@@ -158,9 +166,9 @@
                         android:layout_height="wrap_content"
                         android:text="EDIFICIO B"
                         android:textColor="#7B3FE4"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:letterSpacing="0.2"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="12dp"/>
 
                     <LinearLayout
                         android:id="@+id/filaB1"
