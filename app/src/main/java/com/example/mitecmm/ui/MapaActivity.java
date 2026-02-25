@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.mitecmm.R;
 
-public class MapaActivity extends AppCompatActivity {
+public class  MapaActivity extends AppCompatActivity {
 
     LinearLayout filaA1, filaA2, filaB1;
     LinearLayout panelInfo;
