@@ -24,7 +24,7 @@
             android:textColorHint="#666666"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:background="#1E2235"
+            android:background="@drawable/selector_input"
             android:paddingStart="8dp"
             android:inputType="text"
             android:layout_marginBottom="8dp"/>
@@ -34,21 +34,21 @@
             android:id="@+id/spinnerEdificios"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#1E2235"
+            android:background="@drawable/selector_input"
             android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerPiso"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#1E2235"
+            android:background="@drawable/selector_input"
             android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerTipoEdificio"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#1E2235"
+            android:background="@drawable/selector_input"
             android:layout_marginBottom="16dp"/>
 
         <!--Info salón-->

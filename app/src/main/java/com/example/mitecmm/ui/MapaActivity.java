@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +55,11 @@ public class MapaActivity extends AppCompatActivity {
         agregarSalones(filaA1,salonesA1);
         agregarSalones(filaA2, salonesA2);
         agregarSalones(filaB1,salonesB1);
+
+        findViewById(R.id.contenedorMapa).setOnClickListener(v ->{
+            EditText etBuscar = findViewById(R.id.etBuscar);
+            etBuscar.clearFocus();
+        });
     }
 
     private void agregarSalones(LinearLayout fila, String[][] salones){
@@ -65,11 +71,10 @@ public class MapaActivity extends AppCompatActivity {
             card.setGravity(Gravity.CENTER);
             card.setBackground(ContextCompat.getDrawable(this, R.drawable.card_salon));
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    dpToPx(120), dpToPx(90));
-                    params.setMargins(dpToPx(6), 0, dpToPx(6), 0);
-                    card.setLayoutParams(params);
-                    card.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dpToPx(120), dpToPx(90));
+            params.setMargins(dpToPx(6), 0, dpToPx(6), 0);
+            card.setLayoutParams(params);
+            card.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
 
             //nombre
             TextView tvNombre = new TextView(this);
