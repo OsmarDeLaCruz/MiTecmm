@@ -10,10 +10,8 @@ public class ProfesoresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 1. Cargamos tu diseño oscuro
         setContentView(R.layout.activity_profesores);
 
-        // 2. Le damos color morado a la palabra "Profesores"
         android.widget.TextView tvTitulo = findViewById(R.id.tvTituloProfesores);
         if (tvTitulo != null) {
             String textoConColor = "Nuestros <font color='#8A2BE2'>Profesores</font>";

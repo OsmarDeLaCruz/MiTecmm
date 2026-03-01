@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MiTecmm">
 
         <activity android:name=".ui.MapaActivity" />
-        <activity android:name=".ui.ProfesoresActivity" />
+        <activity android:name=".ui.CarrerasActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

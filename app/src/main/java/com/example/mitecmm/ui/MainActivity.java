@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnProfesores.setOnClickListener(v ->{
-            startActivity(new Intent(MainActivity.this, ProfesoresActivity.class));
+            startActivity(new Intent(MainActivity.this, CarrerasActivity.class));
         });
 
         List<Aviso> avisos = new ArrayList<>();
