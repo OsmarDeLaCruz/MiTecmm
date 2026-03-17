@@ -122,7 +122,7 @@
                 android:id="@+id/contenedorMapa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <!--Edificio A-->
