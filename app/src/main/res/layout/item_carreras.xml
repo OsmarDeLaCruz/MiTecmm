@@ -2,28 +2,21 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#0B0F1A">
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:text="Buscar..."
-        />
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="#0B0F1A"
+    app:cardCornerRadius="16dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0B0F1A"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
-
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="64dp"
@@ -43,7 +36,6 @@
                 android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
-
         <TextView
             android:id="@+id/nombreISC"
             android:layout_width="wrap_content"
@@ -52,6 +44,7 @@
             android:text="Ingenieria Sistemas Computacionales"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
+            android:textAlignment="center"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
