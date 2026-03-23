@@ -40,34 +40,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
 
-
+        //estas son provicionales las vamos a quitar
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria Industrial', 'II')");
 
     }
 
+
+    //esta funcion es provicional la vamos a quitar
     public java.util.List<com.example.mitecmm.model.Carrera> obtenerTodasLasCarreras() {
         java.util.List<com.example.mitecmm.model.Carrera> lista = new java.util.ArrayList<>();
 
-        // 1. Abrimos la base de datos en modo lectura
+
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // 2. Hacemos la consulta SQL (Traer todo de la tabla carreras)
+
         android.database.Cursor cursor = db.rawQuery("SELECT * FROM carreras", null);
 
-        // 3. Recorremos los resultados fila por fila
+
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(0);          // Columna 0: idCarrera
-                String nombre = cursor.getString(1); // Columna 1: nombre
-                String siglas = cursor.getString(2); // Columna 2: siglas
+                int id = cursor.getInt(0);
+                String nombre = cursor.getString(1);
+                String siglas = cursor.getString(2);
 
-                // Agregamos cada carrera a nuestra lista de Java
+
                 lista.add(new com.example.mitecmm.model.Carrera(id, nombre, siglas));
             } while (cursor.moveToNext());
         }
-
-        // 4. Cerramos las conexiones para no gastar batería
         cursor.close();
         db.close();
 

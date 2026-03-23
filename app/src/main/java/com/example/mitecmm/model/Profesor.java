@@ -4,17 +4,17 @@ public class Profesor {
 
 int idProfesor;
 String Nombre;
-String Carrera;
+int idCarrera;
 
-public Profesor(String Nombre, String Carrera){
-    this.Nombre= Nombre;
-    this.Carrera = Carrera;
+public Profesor(int idProfesor, String Nombre, int idCarrera){
     this.idProfesor = idProfesor;
+    this.Nombre= Nombre;
+    this.idCarrera = idCarrera;
 
 }
 
-    public String getCarrera() {
-        return Carrera;
+    public int getCarrera() {
+        return idCarrera;
     }
 
     public String getNombre() {

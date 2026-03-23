@@ -2,12 +2,10 @@ package com.example.mitecmm.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.mitecmm.R;
 import com.example.mitecmm.adapter.AvisoAdapter;
@@ -16,11 +14,12 @@ import com.example.mitecmm.model.Aviso;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseMActivity {
 
     Button btnMapa, btnProfesores;
     RecyclerView recyclerAvisos;
+    ImageView btnMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         btnProfesores = findViewById(R.id.btnProfesores);
         recyclerAvisos = findViewById(R.id.recyclerAvisos);
 
+        btnMenu = findViewById(R.id.btnMenuHamburguesa);
 
         btnMapa.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, MapaActivity.class));
@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, CarrerasActivity.class));
         });
 
+        btnMenu.setOnClickListener(v -> {
+            abrirMenuLateral();
+        });
+
+        // --- Todo tu código de Avisos se queda exactamente igual ---
         List<Aviso> avisos = new ArrayList<>();
         avisos.add(new Aviso(
                 "Tianguis Gastronómico 2026",
