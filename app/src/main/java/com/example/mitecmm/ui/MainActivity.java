@@ -44,7 +44,6 @@ public class MainActivity extends BaseMActivity {
             abrirMenuLateral();
         });
 
-        // --- Todo tu código de Avisos se queda exactamente igual ---
         List<Aviso> avisos = new ArrayList<>();
         avisos.add(new Aviso(
                 "Tianguis Gastronómico 2026",

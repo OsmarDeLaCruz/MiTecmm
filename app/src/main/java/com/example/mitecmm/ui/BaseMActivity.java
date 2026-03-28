@@ -1,5 +1,6 @@
 package com.example.mitecmm.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,9 +28,19 @@ public class BaseMActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (id == R.id.nv_admin) {
-            } else if (id == R.id.nv_inicio) {
+            if (id == R.id.nv_inicio) {
+                    android.content.Intent intent = new android.content.Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+            }else if  (id == R.id.nv_admin) {
+                android.content.Intent intent = new android.content.Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }else if ( id == R.id.nv_owners){
+
             }
+
+
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });

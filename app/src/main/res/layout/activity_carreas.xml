@@ -41,6 +41,14 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <SearchView
+            android:id="@+id/nvBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Buscar..."
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCarreras"
             android:layout_width="match_parent"

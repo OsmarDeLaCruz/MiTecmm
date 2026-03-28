@@ -21,6 +21,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "idCarrera INTEGER NOT NULL ," +
                     "FOREIGN KEY (idCarrera) REFERENCES CARRERAS (idCarrera))";
 
+    private static final String tablaAdmin =
+            "CREATE TABLE  admin (" +
+                    "idAdmin INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "usuario TEXT NOT NULL, "+
+                    "password TEXT NOT NULL)";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,6 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(tablaCarreras);
         db.execSQL(tablaProfesores);
+        db.execSQL(tablaAdmin);
+
+        //estas son provicionales las vamos a quitar
+        db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
+        db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria Industrial', 'II')");
+
+        db.execSQL("INSERT INTO admin (usuario, password) VALUES ('admin', 'fullAnuel123')");
 
     }
 
@@ -37,12 +50,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS profesores");
         db.execSQL("DROP TABLE IF EXISTS carreras");
+        db.execSQL("DROP TABLE IF EXISTS admin");
 
         onCreate(db);
-
-        //estas son provicionales las vamos a quitar
-        db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
-        db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria Industrial', 'II')");
 
     }
 
