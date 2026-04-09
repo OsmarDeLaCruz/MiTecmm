@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    >
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/menuLo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="left"
+            android:src="@android:drawable/ic_menu_sort_by_size" />
+
+        <TextView
+            android:id="@+id/tituloAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Administradores"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/imageLogin"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/account_circle"
+            android:layout_marginTop="40dp"
+            />
+
+        <EditText
+            android:id="@+id/userLo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:textSize="20sp"
+            android:padding="18dp"
+            android:textColor="#FFFFFF"
+
+            />
+
+        <EditText
+            android:id="@+id/passLo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:padding="18dp"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+
+            />
+
+        <Button
+            android:id="@+id/buttonLo"
+            android:layout_width="303dp"
+            android:layout_height="wrap_content"
+            android:padding="18dp"
+            android:text="Login"
+            android:textSize="20dp"
+            android:layout_marginTop="50dp"
+
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,20 +1,27 @@
 package com.example.mitecmm.model;
 
 public class Profesor {
-String Nombre;
-String Carrera;
 
-public Profesor(String Nombre, String Carrera){
+int idProfesor;
+String Nombre;
+int idCarrera;
+
+public Profesor(int idProfesor, String Nombre, int idCarrera){
+    this.idProfesor = idProfesor;
     this.Nombre= Nombre;
-    this.Carrera = Carrera;
+    this.idCarrera = idCarrera;
 
 }
 
-    public String getCarrera() {
-        return Carrera;
+    public int getCarrera() {
+        return idCarrera;
     }
 
     public String getNombre() {
         return Nombre;
+    }
+
+    public int getIdProfesor(){
+        return idProfesor;
     }
 }
