@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mitecmm_datos.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String tablaCarreras =
             "CREATE TABLE carreras ( " +
@@ -28,6 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "password TEXT NOT NULL)";
 
 
+    private static final String tablaAviso = "CREATE TABLE avisos ("+
+            "idAviso INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            "titulo TEXT NOT NULL,"+
+            "descripcion TEXT NOT NULL,"+
+            "fecha TEXT NOT NULL,"+
+            "categoria TEXT NOT NULL)";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -37,10 +44,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(tablaCarreras);
         db.execSQL(tablaProfesores);
         db.execSQL(tablaAdmin);
+        db.execSQL(tablaAviso);
 
         //estas son provicionales las vamos a quitar
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria Industrial', 'II')");
+
 
         db.execSQL("INSERT INTO admin (usuario, password) VALUES ('admin', 'fullAnuel123')");
 
@@ -51,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS profesores");
         db.execSQL("DROP TABLE IF EXISTS carreras");
         db.execSQL("DROP TABLE IF EXISTS admin");
+        db.execSQL("DROP TABLE IF EXISTS avisos");
 
         onCreate(db);
 

@@ -3,12 +3,20 @@ package com.example.mitecmm.model;
 public class Profesor {
 
 int idProfesor;
-String Nombre;
+String nombre;
 int idCarrera;
+String nombreCarrera;
 
-public Profesor(int idProfesor, String Nombre, int idCarrera){
+
+public Profesor(int idProfesor, String nombre, int idCarrera, String nombreCarrera){
     this.idProfesor = idProfesor;
-    this.Nombre= Nombre;
+    this.nombre = nombre;
+    this.idCarrera = idCarrera;
+    this.nombreCarrera = nombreCarrera;
+}
+public Profesor(int idProfesor, String nombre, int idCarrera){
+    this.idProfesor = idProfesor;
+    this.nombre= nombre;
     this.idCarrera = idCarrera;
 
 }
@@ -18,10 +26,11 @@ public Profesor(int idProfesor, String Nombre, int idCarrera){
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public int getIdProfesor(){
         return idProfesor;
     }
+    public String getNombreCarrera() {return nombreCarrera;}
 }

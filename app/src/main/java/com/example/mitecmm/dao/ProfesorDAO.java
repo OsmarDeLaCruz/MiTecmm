@@ -47,7 +47,22 @@ public class ProfesorDAO {
         db.close();
 
         return lista;
+    }
 
+    public  boolean actualizar(int id, String nombre, int idCarrera){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("nombre", nombre);
+        valores.put("idCarrera", idCarrera);
+        int rows = db.update("profesores", valores, "idProfesores=?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows > 0;
+    }
 
+    public boolean eliminar(int id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rows = db.delete("profesores", "idProfesores=?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows > 0;
     }
 }

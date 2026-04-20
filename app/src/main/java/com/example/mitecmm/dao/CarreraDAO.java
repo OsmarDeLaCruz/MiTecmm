@@ -18,7 +18,7 @@ public class CarreraDAO {
         this.dbHelper=new DatabaseHelper(context);
     }
 
-    public long insertarC(String nombre, String siglas){
+    public long insertar(String nombre, String siglas){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("nombre", nombre);
@@ -49,6 +49,20 @@ public class CarreraDAO {
         return lista;
     }
 
+    public boolean actualizar(int id, String nombre, String siglas) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("nombre", nombre);
+        valores.put("siglas", siglas);
+        int rows = db.update("carreras", valores, "idCarrera=?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows > 0;
+    }
 
-
+    public boolean eliminar(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rows = db.delete("carreras", "idCarrera=?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows > 0;
+    }
 }
