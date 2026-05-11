@@ -24,7 +24,7 @@ public class AvisoAdapter extends RecyclerView.Adapter<AvisoAdapter.AvisoViewHol
     @NonNull
     @Override
     public AvisoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_aviso, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_aviso_alumno, parent, false);
         return new AvisoViewHolder(view);
     }
 

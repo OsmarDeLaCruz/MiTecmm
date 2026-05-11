@@ -5,7 +5,7 @@
     android:id="@+id/drawer_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B0F1A">
+    android:background="#FAFAFA">
 
     <FrameLayout
         android:id="@+id/contenedor_pantallas"
@@ -17,8 +17,10 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#1E2235"
-        app:itemTextColor="#FFFFFF"
+        android:background="#FFFFFF"
+        app:itemTextColor="#111111"
+        app:itemIconTint="#6A1B9A"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/items_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

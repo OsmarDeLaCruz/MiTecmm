@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-   <item android:title="Main">
-       <menu>
-           <item
-               android:id="@+id/nv_inicio"
-               android:title="Inicio"
-               />
 
-           </menu>
+    <!-- SECCIÓN 1 -->
+    <item android:title="M A I N">
+        <menu>
+            <item
+                android:id="@+id/nv_inicio"
+                android:icon="@drawable/outline_home_24"
+                android:title="Inicio" />
+        </menu>
     </item>
 
-
-    <item android:title="Admin">
+    <!-- SECCIÓN 2 -->
+    <item android:title="A D M I N I S T R A C I Ó N">
         <menu>
-
             <item
                 android:id="@+id/nv_admin"
-                android:title="Administracion"
-                />
-
+                android:icon="@drawable/account_circle"
+                android:title="Centro de Control" />
         </menu>
     </item>
 
-
-    <item android:title="Otros">
+    <!-- SECCIÓN 3 -->
+    <item android:title="S I S T E M A">
         <menu>
-
             <item
                 android:id="@+id/nv_owners"
-                android:title="Owners"
-                />
+                android:icon="@drawable/rounded_code_24"
+                android:title="Desarrolladores" />
 
             <item
-                android:id="@+id/nv_sugerncias"
-                android:title="Sugerencias"
-                />
-
+                android:id="@+id/nv_sugerencias"
+                android:icon="@drawable/outline_contact_support_24"
+                android:title="Sugerencias" />
         </menu>
     </item>
 
-
-       </menu>
+</menu>

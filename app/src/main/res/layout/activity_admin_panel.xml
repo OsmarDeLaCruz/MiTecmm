@@ -1,121 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#F0F3F7"
+    android:padding="20dp">
 
-    <!--Header-->
     <LinearLayout
+        android:id="@+id/headerAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/menuAdmin"
+            android:id="@+id/menuham"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_sort_by_size"/>
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:tint="#111111" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Panel Admin"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Panel de Control"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#111111"
+                android:fontFamily="sans-serif-black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍 TecMM Campus Zapopan"
+                android:layout_gravity="center"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#666666"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <!--Tabs-->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/tabGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_below="@id/headerAdmin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_segmented_control"
+        android:padding="4dp"
+        app:checkedButton="@+id/tabCarreras"
+        app:singleSelection="true">
 
-        <Button android:id="@+id/tabCarreras"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Carreras"
-            android:textSize="12sp"/>
-
-        <Button android:id="@+id/tabProfesores"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Profesores"
-            android:textSize="12sp"/>
-
-        <Button android:id="@+id/tabAvisos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Avisos"
-            android:textSize="12sp"/>
-    </LinearLayout>
-
-    <!--Panel carreras-->
-    <LinearLayout android:id="@+id/panelCarreras"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ListView android:id="@+id/listCarreras"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAgregarCarrera"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tabCarreras"
+            style="@style/Widget.App.SegmentedButton.Left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:src="@android:drawable/ic_input_add"/>
-    </LinearLayout>
+            android:text="CARRERAS" />
 
-    <!--Panel profesores-->
-    <LinearLayout android:id="@+id/panelProfesores"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ListView android:id="@+id/listProfesores"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAgregarProfesor"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tabProfesores"
+            style="@style/Widget.App.SegmentedButton.Middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:src="@android:drawable/ic_input_add"/>
-    </LinearLayout>
+            android:text="DOCENTES" />
 
-    <!--Panel avisos-->
-    <LinearLayout android:id="@+id/panelAvisos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ListView android:id="@+id/listAvisos"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAgregarAviso"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tabAvisos"
+            style="@style/Widget.App.SegmentedButton.Right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:src="@android:drawable/ic_input_add"/>
-    </LinearLayout>
+            android:text="AVISOS" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-</LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabGroup"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAdminGeneric"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="88dp"
+            tools:listitem="@layout/item_admin_generic" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        app:backgroundTint="#0B0F1A"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="#FFFFFF" />
+
+</RelativeLayout>

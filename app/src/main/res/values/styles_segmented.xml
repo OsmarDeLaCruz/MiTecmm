@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.App.SegmentedButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="iconTint">#FFFFFF</item>
+        <item name="android:backgroundTint">#1A2436</item> <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SegmentedButton</item>
+        <item name="rippleColor">#33FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Widget.App.SegmentedButton.Left" parent="Widget.App.SegmentedButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SegmentedButton.Left</item>
+    </style>
+
+    <style name="Widget.App.SegmentedButton.Middle" parent="Widget.App.SegmentedButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SegmentedButton.Middle</item>
+    </style>
+
+    <style name="Widget.App.SegmentedButton.Right" parent="Widget.App.SegmentedButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SegmentedButton.Right</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SegmentedButton" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SegmentedButton.Left" parent="ShapeAppearance.App.SegmentedButton">
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SegmentedButton.Middle" parent="ShapeAppearance.App.SegmentedButton">
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SegmentedButton.Right" parent="ShapeAppearance.App.SegmentedButton">
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+    </style>
+</resources>

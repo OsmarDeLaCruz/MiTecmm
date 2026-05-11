@@ -3,41 +3,105 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <!-- CABECERA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GESTIÓN DE AVISO"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#111111"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- SPINNER CATEGORÍA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C A T E G O R Í A"
+        android:textColor="#512DA8"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:layout_marginBottom="4dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#EEEEEE"
+        android:layout_marginBottom="16dp"
+        android:padding="2dp">
+        <Spinner
+            android:id="@+id/spinnerCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"/>
+    </LinearLayout>
+
+    <!-- INPUT TÍTULO -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T Í T U L O"
+        android:textColor="#888888"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:layout_marginBottom="4dp"/>
 
     <EditText
         android:id="@+id/etTituloAviso"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Título"
-        android:inputType="textCapSentences"/>
+        android:layout_height="50dp"
+        android:background="#EEEEEE"
+        android:hint="Ej. CREDENCIALES"
+        android:paddingHorizontal="16dp"
+        android:textColor="#111111"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/etDescripcionAviso"
-        android:layout_width="match_parent"
+    <!-- INPUT FECHA -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Descripción"
-        android:inputType="textMultiLine"
-        android:minLines="3"
-        android:gravity="top"
-        android:layout_marginTop="12dp"/>
+        android:text="F E C H A"
+        android:textColor="#888888"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:layout_marginBottom="4dp"/>
 
     <EditText
         android:id="@+id/etFechaAviso"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Fecha (ej. 10 Abr 2026)"
-        android:layout_marginTop="12dp"/>
+        android:layout_height="50dp"
+        android:background="#EEEEEE"
+        android:hint="Ej. 28 de abril de 2026"
+        android:paddingHorizontal="16dp"
+        android:textColor="#111111"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
 
+    <!-- INPUT DESCRIPCIÓN -->
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Categoría:"
-        android:layout_marginTop="16dp"/>
+        android:text="D E S C R I P C I Ó N"
+        android:textColor="#888888"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:layout_marginBottom="4dp"/>
 
-    <Spinner
-        android:id="@+id/spinnerCategoria"
+    <EditText
+        android:id="@+id/etDescripcionAviso"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"
+        android:background="#EEEEEE"
+        android:hint="Detalles del aviso o trámite..."
+        android:gravity="top|start"
+        android:padding="16dp"
+        android:textColor="#111111"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
 
 </LinearLayout>

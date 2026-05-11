@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mitecmm_datos.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private static final String tablaCarreras =
             "CREATE TABLE carreras ( " +
@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "idProfesores INTEGER PRIMARY KEY AUTOINCREMENT, "+
                     "nombre TEXT NOT NULL, " +
                     "idCarrera INTEGER NOT NULL ," +
+                    "urlHorario TEXT ," +
                     "FOREIGN KEY (idCarrera) REFERENCES CARRERAS (idCarrera))";
 
     private static final String tablaAdmin =
@@ -48,10 +49,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //estas son provicionales las vamos a quitar
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
-        db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria Industrial', 'II')");
 
 
-        db.execSQL("INSERT INTO admin (usuario, password) VALUES ('admin', 'fullAnuel123')");
+        db.execSQL("INSERT INTO admin (usuario, password) VALUES ('admin', 'admineo12')");
 
     }
 
@@ -70,21 +70,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //esta funcion es provicional la vamos a quitar
     public java.util.List<com.example.mitecmm.model.Carrera> obtenerTodasLasCarreras() {
         java.util.List<com.example.mitecmm.model.Carrera> lista = new java.util.ArrayList<>();
-
-
         SQLiteDatabase db = this.getReadableDatabase();
-
-
         android.database.Cursor cursor = db.rawQuery("SELECT * FROM carreras", null);
-
 
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
                 String nombre = cursor.getString(1);
                 String siglas = cursor.getString(2);
-
-
                 lista.add(new com.example.mitecmm.model.Carrera(id, nombre, siglas));
             } while (cursor.moveToNext());
         }

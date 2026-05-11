@@ -1,18 +1,20 @@
 package com.example.mitecmm.ui;
 
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mitecmm.R;
 import com.example.mitecmm.dao.AvisoDAO;
@@ -21,92 +23,85 @@ import com.example.mitecmm.dao.ProfesorDAO;
 import com.example.mitecmm.model.Aviso;
 import com.example.mitecmm.model.Carrera;
 import com.example.mitecmm.model.Profesor;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class AdminPanelActivity extends BaseMActivity {
 
-    //variables de control
-    private Button tabCarreras, tabProfesores, tabAvisos;
-    private LinearLayout panelCarreras, panelProfesores, panelAvisos;
-    private ListView listCarreras, listProfesores, listAvisos;
+    // VARIÁVEIS DE CONTROLO - Atualizado para RecyclerView
+    private RecyclerView recyclerView;
     private CarreraDAO carreraDAO;
     private ProfesorDAO profesorDAO;
     private AvisoDAO avisoDAO;
+    private MaterialButtonToggleGroup tabGroup;
+    private FloatingActionButton fabAgregar;
 
-    //Inicialización
+    // Estado da Aba Ativa (0=Carreras, 1=Profesores, 2=Avisos)
+    private int currentTab = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_panel);
 
+        // Inicializar DAOs
         carreraDAO = new CarreraDAO(this);
         profesorDAO = new ProfesorDAO(this);
         avisoDAO = new AvisoDAO(this);
 
-        tabCarreras = findViewById(R.id.tabCarreras);
-        tabProfesores = findViewById(R.id.tabProfesores);
-        tabAvisos = findViewById(R.id.tabAvisos);
+        // Vincular Componentes XML
+        tabGroup = findViewById(R.id.tabGroup);
+        recyclerView = findViewById(R.id.recyclerAdminGeneric);
+        fabAgregar = findViewById(R.id.fabAgregar);
+        ImageView btnMenu = findViewById(R.id.menuham);
 
-        panelCarreras = findViewById(R.id.panelCarreras);
-        panelProfesores = findViewById(R.id.panelCarreras);
-        panelAvisos = findViewById(R.id.panelAvisos);
+        // Configurar RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listCarreras = findViewById(R.id.listCarreras);
-        listProfesores = findViewById(R.id.listProfesores);
-        listAvisos = findViewById(R.id.listAvisos);
+        // Lógica dos Botões Segmentados (Tabs)
+        tabGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                if (checkedId == R.id.tabCarreras) {
+                    mostrarTab(0);
+                } else if (checkedId == R.id.tabProfesores) {
+                    mostrarTab(1);
+                } else if (checkedId == R.id.tabAvisos) {
+                    mostrarTab(2);
+                }
+            }
+        });
 
-        ImageView btnMenu = findViewById(R.id.menuAdmin);
+        // Configurar Botão FAB (Agregar)
+        fabAgregar.setOnClickListener(v -> {
+            if (currentTab == 0) dialogCarrera(null);
+            else if (currentTab == 1) dialogProfesor(null);
+            else if (currentTab == 2) dialogAviso(null);
+        });
+
+        // Configurar Menu Lateral
         btnMenu.setOnClickListener(v -> abrirMenuLateral());
 
-        findViewById(R.id.fabAgregarCarrera).setOnClickListener(v -> dialogCarrera(null));
-        findViewById(R.id.fabAgregarProfesor).setOnClickListener(v -> dialogProfesor(null));
-        findViewById(R.id.fabAgregarAviso).setOnClickListener(v -> dialogAviso(null));
-
-        tabCarreras.setOnClickListener(v -> mostrarTab(0));
-        tabProfesores.setOnClickListener(v -> mostrarTab(1));
-        tabAvisos.setOnClickListener(v -> mostrarTab(2));
-
+        // Carregar Aba por defeito
         mostrarTab(0);
     }
 
     private void mostrarTab(int tab) {
-        panelCarreras.setVisibility(tab == 0 ? View.VISIBLE : View.GONE);
-        panelProfesores.setVisibility(tab == 1 ? View.VISIBLE : View.GONE);
-        panelAvisos.setVisibility(tab == 2 ? View.VISIBLE : View.GONE);
-
+        currentTab = tab;
         if (tab == 0) cargarCarreras();
         if (tab == 1) cargarProfesores();
         if (tab == 2) cargarAvisos();
     }
 
-    //cargar carreras
+    // ==========================================
+    // LÓGICA DE CARRERAS
+    // ==========================================
     private void cargarCarreras() {
         List<Carrera> lista = carreraDAO.showAll();
-        String[] items = new String[lista.size()];
-        for (int i = 0; i < lista.size(); i++) {
-            items[i] = lista.get(i).getNombre() + " (" + lista.get(i).getSiglas() + ")";
-        }
+            AdminCarreraAdapter adapter = new AdminCarreraAdapter(lista);
+            recyclerView.setAdapter(adapter);
 
-        listCarreras.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
-        listCarreras.setOnItemLongClickListener((parent, view, position, id) -> {
-            opcionesCarrera(lista.get(position));
-            return true;
-        });
-    }
-
-    private void opcionesCarrera(Carrera c) {
-        new AlertDialog.Builder(this).setTitle(c.getNombre()).setItems(new String[]{"Editar", "Eliminar"}, (dialog, which) -> {
-            if (which == 0) {
-                dialogCarrera(c);
-            } else {
-                new AlertDialog.Builder(this).setTitle("Confirmar").setMessage("¿Desea Eliminar" + c.getNombre() + "?").setPositiveButton("Elimianr", (d, w) -> {
-                    carreraDAO.eliminar(c.getIdCarrera());
-                    cargarCarreras();
-                    Toast.makeText(this, "Carrera Eliminada", Toast.LENGTH_SHORT).show();
-                }).setNegativeButton("Cancelar", null).show();
-            }
-        }).show();
     }
 
     private void dialogCarrera(Carrera carrera) {
@@ -130,52 +125,39 @@ public class AdminPanelActivity extends BaseMActivity {
                 carreraDAO.insertar(nombre, siglas);
             } else {
                 carreraDAO.actualizar(carrera.getIdCarrera(), nombre, siglas);
-                cargarCarreras();
             }
+            cargarCarreras();
         }).setNegativeButton("Cancelar", null).show();
     }
 
-    //Profesores
-    private void cargarProfesores() {
-        List<Profesor> lista = profesorDAO.showAll();
-        String[] items = new String[lista.size()];
-        for (int i = 0; i < lista.size(); i++) {
-            items[i] = lista.get(i).getNombre() + "  —  " + lista.get(i).getNombreCarrera();
-        }
-        listProfesores.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, items));
-
-        listProfesores.setOnItemLongClickListener((parent, view, pos, id) -> {
-            opcionesProfesor(lista.get(pos));
-            return true;
-        });
+    private void opcionesCarrera(Carrera c) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmar")
+                .setMessage("¿Desea Eliminar " + c.getNombre() + "?")
+                .setPositiveButton("Eliminar", (d, w) -> {
+                    carreraDAO.eliminar(c.getIdCarrera());
+                    cargarCarreras();
+                    Toast.makeText(this, "Carrera Eliminada", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
-    private void opcionesProfesor(Profesor p) {
-        new AlertDialog.Builder(this)
-                .setTitle(p.getNombre())
-                .setItems(new String[]{"Editar", "Eliminar"}, (dialog, which) -> {
-                    if (which == 0) {
-                        dialogProfesor(p);
-                    } else {
-                        new AlertDialog.Builder(this)
-                                .setTitle("Confirmar")
-                                .setMessage("¿Eliminar a " + p.getNombre() + "?")
-                                .setPositiveButton("Eliminar", (d, w) -> {
-                                    profesorDAO.eliminar(p.getIdProfesor());
-                                    cargarProfesores();
-                                    Toast.makeText(this, "Profesor eliminado", Toast.LENGTH_SHORT).show();
-                                })
-                                .setNegativeButton("Cancelar", null)
-                                .show();
-                    }
-                }).show();
+    // ==========================================
+    // LÓGICA DE PROFESORES
+    // ==========================================
+    private void cargarProfesores() {
+        List<Profesor> lista = profesorDAO.showAll();
+           AdminProfesorAdapter adapter = new AdminProfesorAdapter(lista);
+           recyclerView.setAdapter(adapter);
+
     }
 
     private void dialogProfesor(Profesor profesor) {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_profesor, null);
         EditText etNombre = view.findViewById(R.id.etNombreProfesor);
         Spinner spinnerCarrera = view.findViewById(R.id.spinnerCarrera);
+        EditText etUrlHorario = view.findViewById(R.id.etUrlHorario);
 
         List<Carrera> carreras = carreraDAO.showAll();
         String[] nombresCarreras = new String[carreras.size()];
@@ -183,8 +165,10 @@ public class AdminPanelActivity extends BaseMActivity {
             nombresCarreras[i] = carreras.get(i).getNombre();
         }
         spinnerCarrera.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresCarreras));
+
         if (profesor != null) {
             etNombre.setText(profesor.getNombre());
+            etUrlHorario.setText(profesor.getUrlHorario());
             for (int i = 0; i < carreras.size(); i++) {
                 if (carreras.get(i).getIdCarrera() == profesor.getCarrera()) {
                     spinnerCarrera.setSelection(i);
@@ -193,49 +177,54 @@ public class AdminPanelActivity extends BaseMActivity {
             }
         }
 
-        new AlertDialog.Builder(this).setTitle(profesor == null ? "Nuevo profesor" : "Editar profesor").setView(view).setPositiveButton("Guardar", (d, w) -> {
+        new AlertDialog.Builder(this)
+                .setTitle(profesor == null ? "Nuevo profesor" : "Editar profesor")
+                .setView(view)
+                .setPositiveButton("Guardar", (d, w) -> {
+
             String nombre = etNombre.getText().toString().trim();
+            String linkPdf = etUrlHorario.getText().toString().trim();
+
             if (nombre.isEmpty()) {
                 Toast.makeText(this, "Escribe el nombre", Toast.LENGTH_SHORT).show();
                 return;
             }
             int idCarrera = carreras.get(spinnerCarrera.getSelectedItemPosition()).getIdCarrera();
             if (profesor == null) {
-                profesorDAO.insertarP(nombre, idCarrera);
+                profesorDAO.insertarP(nombre, idCarrera, linkPdf);
             } else {
-                profesorDAO.actualizar(profesor.getIdProfesor(), nombre, idCarrera);
+                profesorDAO.actualizar(profesor.getIdProfesor(), nombre, idCarrera, linkPdf);
             }
             cargarProfesores();
         }).setNegativeButton("Cancelar", null).show();
     }
 
-    //avisos
-    private void cargarAvisos() {
-        List<Aviso> lista = avisoDAO.showAll();
-        String[] items = new String[lista.size()];
-        for (int i = 0; i <= lista.size(); i++) {
-            items[i] = " [" + lista.get(i).getCategoria() + "] " + lista.get(i).getTitulo();
-        }
-        listAvisos.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
-
-        listAvisos.setOnItemLongClickListener((parent, view, position, id) -> {
-            opcionesAviso(lista.get(position));
-            return true;
-        });
+    private void opcionesProfesor(Profesor p) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmar")
+                .setMessage("¿Eliminar a " + p.getNombre() + "?")
+                .setPositiveButton("Eliminar", (d, w) -> {
+                    profesorDAO.eliminar(p.getIdProfesor());
+                    cargarProfesores();
+                    Toast.makeText(this, "Profesor eliminado", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
-    private void opcionesAviso(Aviso a) {
-        new AlertDialog.Builder(this).setTitle(a.getTitulo()).setItems(new String[]{"Editar", "Eliminar"}, (dialog, which) -> {
-            if (which == 0) {
-                dialogAviso(a);
-            } else {
-                new AlertDialog.Builder(this).setTitle("Confirmar").setMessage("¿Eliminar el aviso " + a.getTitulo() + "?").setPositiveButton("Eliminar", (d, w) -> {
-                    avisoDAO.delete(a.getIdAviso());
-                    cargarAvisos();
-                    Toast.makeText(this, "Aviso eliminado", Toast.LENGTH_SHORT).show();
-                }).setNegativeButton("Cancelar", null).show();
-            }
-        }).show();
+    // ==========================================
+    // LÓGICA DE AVISOS
+    // ==========================================
+    private void cargarAvisos() {
+        recyclerView.setAdapter(null);
+        List<Aviso> lista = avisoDAO.showAll();
+
+        android.util.Log.d("AVISO_DEBUG", "Total avisos encontrados: " + lista.size());
+
+        AdminAvisoAdapter adapter = new AdminAvisoAdapter(lista);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     private void dialogAviso(Aviso aviso){
@@ -253,7 +242,7 @@ public class AdminPanelActivity extends BaseMActivity {
             etDesc.setText(aviso.getDescripcion());
             etFecha.setText(aviso.getFecha());
 
-            for(int i = 0; i <= categorias.length; i++){
+            for(int i = 0; i < categorias.length; i++){
                 if(categorias[i].equals(aviso.getCategoria())){
                     spinnerCategoria.setSelection(i);
                     break;
@@ -263,23 +252,142 @@ public class AdminPanelActivity extends BaseMActivity {
 
         new AlertDialog.Builder(this).setTitle(aviso == null ? "Nuevo Aviso" : "Editar aviso").setView(view).setPositiveButton("Guardar", (d, w) -> {
             String titulo = etTitulo.getText().toString().trim();
-            String descripción = etDesc.getText().toString().trim();
+            String descripcion = etDesc.getText().toString().trim();
             String fecha = etFecha.getText().toString().trim();
-            String categoría = spinnerCategoria.getSelectedItem().toString();
-            if(titulo.isEmpty() || descripción.isEmpty() || fecha.isEmpty()){
-                Toast.makeText(this, "Complete los campos", Toast.LENGTH_SHORT).show();;
+            String categoria = spinnerCategoria.getSelectedItem().toString();
+
+            if(titulo.isEmpty() || descripcion.isEmpty() || fecha.isEmpty()){
+                Toast.makeText(this, "Complete los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(aviso == null){
-                avisoDAO.insert(titulo, descripción, fecha, categoría);
+                boolean ok = avisoDAO.insert(titulo, descripcion, fecha, categoria);
+                android.util.Log.d("AVISO_DEBUG", "Insert resultado: " + ok +
+                        " | titulo=" + titulo +
+                        " | desc=" + descripcion +
+                        " | fecha=" + fecha +
+                        " | cat=" + categoria);
+                Toast.makeText(this, ok ? "Guardado ✓" : "ERROR al guardar", Toast.LENGTH_SHORT).show();
             } else {
-                avisoDAO.update(aviso.getIdAviso(), titulo, descripción, fecha, categoría);
-                cargarAvisos();
+                avisoDAO.update(aviso.getIdAviso(), titulo, descripcion, fecha, categoria);
             }
-        } ).setNegativeButton("Cancelar", null).show();
-
+            cargarAvisos();
+        }).setNegativeButton("Cancelar", null).show();
     }
 
+    private void opcionesAviso(Aviso a) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmar")
+                .setMessage("¿Eliminar el aviso " + a.getTitulo() + "?")
+                .setPositiveButton("Eliminar", (d, w) -> {
+                    avisoDAO.delete(a.getIdAviso());
+                    cargarAvisos();
+                    Toast.makeText(this, "Aviso eliminado", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
+    // =========================================================================
+    // ADAPTADORES INTERNOS (El motor de las tarjetas bonitas)
+    // =========================================================================
+
+    // View Holder Genérico (Liga os IDs do XML item_admin_generic)
+    class AdminGenericViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitulo, tvSubtitulo;
+        ImageView imgIcono;
+        com.google.android.material.button.MaterialButton btnEditar, btnEliminar;
+
+        public AdminGenericViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitulo = itemView.findViewById(R.id.tvItemTitle);
+            tvSubtitulo = itemView.findViewById(R.id.tvItemSubtitle);
+            imgIcono = itemView.findViewById(R.id.imgItemIcon);
+            btnEditar = itemView.findViewById(R.id.btnEditar);
+            btnEliminar = itemView.findViewById(R.id.btnEliminar);
+        }
+    }
+
+    // 1. Adaptador de Carreras
+    class AdminCarreraAdapter extends RecyclerView.Adapter<AdminGenericViewHolder> {
+        List<Carrera> lista;
+        public AdminCarreraAdapter(List<Carrera> lista) { this.lista = lista; }
+        @NonNull @Override public AdminGenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_generic, parent, false);
+            return new AdminGenericViewHolder(v);
+        }
+        @Override public void onBindViewHolder(@NonNull AdminGenericViewHolder holder, int position) {
+            Carrera c = lista.get(position);
+            holder.tvTitulo.setText(c.getNombre());
+            holder.tvSubtitulo.setText("Siglas: " + c.getSiglas());
+
+
+            holder.imgIcono.setImageResource(android.R.drawable.ic_menu_compass); // Placeholder
+
+            // Configurar botões EDIT e DELETE
+            holder.btnEditar.setOnClickListener(v -> dialogCarrera(c));
+            holder.btnEliminar.setOnClickListener(v -> opcionesCarrera(c));
+        }
+        @Override public int getItemCount() { return lista.size(); }
+
+        public void actualizarDatos(List<Carrera> nuevaLista){
+            this.lista = nuevaLista;
+            notifyDataSetChanged();
+        }
+    }
+
+    // 2. Adaptador de Profesores
+    class AdminProfesorAdapter extends RecyclerView.Adapter<AdminGenericViewHolder> {
+        List<Profesor> lista;
+        public AdminProfesorAdapter(List<Profesor> lista) { this.lista = lista; }
+        @NonNull @Override public AdminGenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_generic, parent, false);
+            return new AdminGenericViewHolder(v);
+        }
+        @Override public void onBindViewHolder(@NonNull AdminGenericViewHolder holder, int position) {
+            Profesor p = lista.get(position);
+            holder.tvTitulo.setText(p.getNombre());
+            holder.tvSubtitulo.setText("ID Carrera: " + p.getCarrera());
+
+            // --- IMPORTANTE: Imagens Vectoriais ---
+            // Substitui isto pelo teu vector de Docente do drawable
+            holder.imgIcono.setImageResource(android.R.drawable.ic_menu_gallery); // Placeholder
+
+            holder.btnEditar.setOnClickListener(v -> dialogProfesor(p));
+            holder.btnEliminar.setOnClickListener(v -> opcionesProfesor(p));
+        }
+        @Override public int getItemCount() { return lista.size(); }
+
+        public void actualizarDatos(List<Profesor> nuevaLista){
+            this.lista = nuevaLista;
+            notifyDataSetChanged();
+        }
+    }
+
+    // 3. Adaptador de Avisos
+    class AdminAvisoAdapter extends RecyclerView.Adapter<AdminGenericViewHolder> {
+        List<Aviso> lista;
+        public AdminAvisoAdapter(List<Aviso> lista) { this.lista = lista; }
+        @NonNull @Override public AdminGenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_generic, parent, false);
+            return new AdminGenericViewHolder(v);
+        }
+        @Override public void onBindViewHolder(@NonNull AdminGenericViewHolder holder, int position) {
+            Aviso a = lista.get(position);
+            holder.tvTitulo.setText(a.getTitulo());
+            holder.tvSubtitulo.setText(a.getCategoria() + " | Fecha: " + a.getFecha());
+
+            // --- IMPORTANTE: Imagens Vectoriais ---
+            holder.imgIcono.setImageResource(android.R.drawable.ic_menu_agenda); // Placeholder
+
+            holder.btnEditar.setOnClickListener(v -> dialogAviso(a));
+            holder.btnEliminar.setOnClickListener(v -> opcionesAviso(a));
+        }
+        @Override public int getItemCount() { return lista.size(); }
+
+        public void actualizarDatos(List<Aviso> nuevaLista){
+            this.lista = nuevaLista;
+            notifyDataSetChanged();
+        }
+    }
 }
-

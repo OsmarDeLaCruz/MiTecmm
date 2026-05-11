@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
+    android:background="#FAFAFA"
     >
 
     <LinearLayout
@@ -53,7 +54,6 @@
             android:hint="Username"
             android:textSize="20sp"
             android:padding="18dp"
-            android:textColor="#FFFFFF"
 
             />
 
@@ -64,7 +64,6 @@
             android:hint="Password"
             android:padding="18dp"
             android:textSize="20sp"
-            android:textColor="#FFFFFF"
 
             />
 

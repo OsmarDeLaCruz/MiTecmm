@@ -62,11 +62,11 @@ public class AvisoDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("titulo", titulo);
-        values.put("descripción", desc);
+        values.put("descripcion", desc);
         values.put("fecha",fecha);
         values.put("categoria",categoria);
 
-        long result = db.insert("aviso", null, values);
+        long result = db.insert("avisos", null, values);
         db.close();
         return result != -1;
     }
@@ -77,7 +77,7 @@ public class AvisoDAO {
         values.put("titulo", titulo);
         values.put("descripcion",desc);
         values.put("fecha",fecha);
-        values.put("categria",categoria);
+        values.put("categoria",categoria);
 
         int rows = db.update("avisos", values, "idAviso=?", new String[]{String.valueOf(id)});
         db.close();

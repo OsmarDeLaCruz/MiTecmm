@@ -37,7 +37,12 @@ public class BaseMActivity extends AppCompatActivity {
                 android.content.Intent intent = new android.content.Intent(this, LoginActivity.class);
                 startActivity(intent);
             }else if ( id == R.id.nv_owners){
+                android.content.Intent intent = new android.content.Intent(this, DevsActivity.class);
+                startActivity(intent);
 
+            }else if (id == R.id.nv_sugerencias){
+                android.content.Intent intent = new android.content.Intent(this, SugerenciaActivity.class);
+                startActivity(intent);
             }
 
 

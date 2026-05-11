@@ -1,69 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B0F1A">
+    android:orientation="vertical"
+    android:background="#FAFAFA"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="0dp"> <!-- ✅ Separamos los paddings para que no empuje tanto desde arriba -->
 
+    <!-- HEADER (Menú Hamburguesa) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp"> <!-- ✅ Reducido casi a cero para pegar el texto de MOD_02 -->
+
+        <ImageView
+            android:id="@+id/menuham"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:tint="#111111" /> <!-- Usé app:tint que es la práctica moderna -->
+    </LinearLayout>
+
+    <!-- TÍTULOS SUPER COMPACTOS -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[ MOD_02 · ACADEMIC_PROGRAMS ]"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:textColor="#888888"
+        android:textSize="12sp"
+        android:layout_marginBottom="0dp"/> <!-- ✅ Pegado al título principal -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione Carrera"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#111111"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="2dp"/> <!-- ✅ Pegado a la descripción -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explora los programas académicos disponibles en el campus."
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="20dp"/> <!-- ✅ Único espacio grande para separar la búsqueda -->
+
+    <!-- BARRA DE BÚSQUEDA -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#6A1B9A"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="#F5F5F5"
+        android:layout_marginBottom="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="#1E2235"
             android:paddingHorizontal="16dp">
 
             <ImageView
-                android:id="@+id/btnMenuHamburguesa"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"
-                app:tint="#FFFFFF"
-                />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="#6A1B9A"/>
+
+            <EditText
+                android:id="@+id/etBuscarCarrera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Busca por nombre de carrera o siglas..."
+                android:textSize="14sp"
+                android:layout_marginStart="12dp"
+                android:textColorHint="#888888"
+                android:textColor="#111111"
+                android:inputType="text"/>
 
             <TextView
-                android:id="@+id/tituloCarreras"
+                android:id="@+id/tvSinResultadosCarreras"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Seleccione Carrera"
-                android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="No se encontraron carreras con ese nombre o siglas."
+                android:textAlignment="center"
+                android:textColor="#EF4444"
+                android:textStyle="bold"
+                android:padding="30dp"
+                android:visibility="gone" />
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <SearchView
-            android:id="@+id/nvBuscar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Buscar..."
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCarreras"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_carreras" />
-
-    </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="280dp"
+    <!-- RECYCLER VIEW -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCarreras"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#1E2235" />
+        android:clipToPadding="false"
+        android:paddingBottom="20dp"/>
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

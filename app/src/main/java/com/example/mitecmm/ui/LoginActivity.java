@@ -37,6 +37,9 @@ public class LoginActivity extends BaseMActivity {
 
             if(adminDAO.validarAdmin(usuario, password)){
                 Toast.makeText(LoginActivity.this, "Bienvenido Jefe", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }

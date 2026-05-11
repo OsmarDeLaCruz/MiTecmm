@@ -79,23 +79,23 @@ public class  MapaActivity extends AppCompatActivity {
 
         //Spinner edificios
         ArrayAdapter<String> adapterEdifcios = new ArrayAdapter<>(this,
-                R.layout.spinner_item,
-                new String[]{"Todos los edificios", "Edificio A", "Edificio B"});
-        adapterEdifcios.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                android.R.layout.simple_spinner_item,
+        new String[]{"Todos los edificios", "Edificio A", "Edificio B"});
+        adapterEdifcios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEdificios.setAdapter(adapterEdifcios);
 
         //Spinner pisos
         ArrayAdapter<String> adapterPisos = new ArrayAdapter<>(this,
-                R.layout.spinner_item,
+                android.R.layout.simple_spinner_item,
                 new String[]{"Todos los pisos", "Piso 1", "Piso 2", "Piso 3"});
-        adapterPisos.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        adapterPisos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPiso.setAdapter(adapterPisos);
 
         //Spinner tipos
         ArrayAdapter<String> adapterTipos = new ArrayAdapter<>(this,
-                R.layout.spinner_item,
+                android.R.layout.simple_spinner_item,
                 new String[]{"Todos los tipos", "Aula", "Laboratorio", "Taller"});
-        adapterTipos.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        adapterTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipoEdificios.setAdapter(adapterTipos);
 
         //Buscar

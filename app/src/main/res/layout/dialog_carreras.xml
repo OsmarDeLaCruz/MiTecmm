@@ -3,18 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="24dp">
 
-    <EditText android:id="@+id/etNombreCarrera"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre de la carrera"
-        android:inputType="textCapWords"/>
+        android:text="Nombre de la Carrera"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
 
-    <EditText android:id="@+id/etSiglasCarrera"
+    <EditText
+        android:id="@+id/etNombreCarrera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Siglas (ej. ISC)"
-        android:inputType="textCapCharacters"
-        android:layout_marginTop="12dp"/>
+        android:hint="Ej. Ingeniería en Sistemas..."
+        android:inputType="textCapWords"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Siglas"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etSiglasCarrera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ej. ISC"
+        android:inputType="textCapCharacters" />
+
 </LinearLayout>

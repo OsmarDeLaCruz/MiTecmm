@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Título del Dialog -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Buzón de Sugerencias"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Pequeña descripción -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Ayúdanos a mejorar MyTecMM. Tu mensaje se enviará directamente al equipo de desarrollo."
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <!-- Caja de texto para escribir la sugerencia -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxStrokeColor="#128C7E"
+        app:hintTextColor="#128C7E">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_sugerencia_texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:hint="Escribe tu sugerencia aquí..."
+            android:inputType="textMultiLine"
+            android:minLines="4" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botones de Acción -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancelar_sugerencia"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Cancelar"
+            android:textColor="#666666" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_enviar_sugerencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#128C7E" />
+    </LinearLayout>
+
+</LinearLayout>
