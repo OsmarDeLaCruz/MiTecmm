@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mitecmm.R;
 import com.example.mitecmm.model.Carrera;
+import com.example.mitecmm.ui.HorarioActivity;
 import com.example.mitecmm.ui.ProfesoresActivity;
 
 import java.util.ArrayList;
@@ -42,9 +43,13 @@ public class CarrerasAdapter extends RecyclerView.Adapter<CarrerasAdapter.Carrer
         holder.tvNombre.setText(carreraActual.getNombre());
 
         holder.btnVerMaestros.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), ProfesoresActivity.class);
-            intent.putExtra("CARRERA_SELECCIONADA", carreraActual.getSiglas());
+            Intent intent = new Intent(v.getContext(), HorarioActivity.class);
             v.getContext().startActivity(intent);
+
+            //filtro por carreras
+            /*Intent intent = new Intent(v.getContext(), ProfesoresActivity.class);
+            intent.putExtra("CARRERA_SIGLAS", carreraActual.getSiglas());
+            v.getContext().startActivity(intent);*/
         });
     }
 

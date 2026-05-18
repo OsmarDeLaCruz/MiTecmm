@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mitecmm.dao.AvisoDAO;
 import com.example.mitecmm.model.Aviso;
+import com.example.mitecmm.model.Horario;
+import com.example.mitecmm.repository.AvisosRepository;
+import com.example.mitecmm.repository.HorariosRepository;
 
 import java.util.List;
 
@@ -34,6 +37,14 @@ public class MainActivity extends BaseMActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AvisosRepository repository = new AvisosRepository(this);
+        repository.sincronizarAvisos();
+
+        HorariosRepository horarios = new HorariosRepository(this);
+        horarios.sincronizar();
+
+        actualizarBanner();
+
         TextView tvFechaHeader = findViewById(R.id.tvFecha);
         TextView tvAvisoTicker = findViewById(R.id.tvAvisoBanner);
 
@@ -43,6 +54,7 @@ public class MainActivity extends BaseMActivity {
         btnMenu = findViewById(R.id.menuham);
 
         tvAvisoBanner = findViewById(R.id.tvAvisoBanner);
+        //tvAvisoBanner.setSelected(true);
 
         String fechaHoy = new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(new java.util.Date());
         tvFechaHeader.setText(fechaHoy);
@@ -55,6 +67,7 @@ public class MainActivity extends BaseMActivity {
         }else {
             tvAvisoTicker.setText("No hay avisos recientes");
         }
+        tvAvisoTicker.setSelected(true);
 
         btnMapa.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, MapaActivity.class));

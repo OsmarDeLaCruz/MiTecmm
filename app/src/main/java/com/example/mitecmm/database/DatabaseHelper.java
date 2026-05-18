@@ -6,7 +6,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mitecmm_datos.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
+
+    private static final  String tablaHorarios =
+            "CREATE TABLE horarios_docentes("+
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    "idRemoto INTEGER,"+
+                    "docente TEXT,"+
+                    "materia TEXT,"+
+                    "grupo TEXT,"+
+                    "dia TEXT,"+
+                    "horaInicio TEXT,"+
+                    "horaFin TEXT,"+
+                    "aula TEXT)";
 
     private static final String tablaCarreras =
             "CREATE TABLE carreras ( " +
@@ -31,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String tablaAviso = "CREATE TABLE avisos ("+
             "idAviso INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            "idRemoto INTEGER,"+
             "titulo TEXT NOT NULL,"+
             "descripcion TEXT NOT NULL,"+
             "fecha TEXT NOT NULL,"+
@@ -46,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(tablaProfesores);
         db.execSQL(tablaAdmin);
         db.execSQL(tablaAviso);
+        db.execSQL(tablaHorarios);
 
         //estas son provicionales las vamos a quitar
         db.execSQL("INSERT INTO carreras (nombre, siglas) VALUES ('Ingenieria en Sistemas Computacionales' , 'ISC')");
@@ -61,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS carreras");
         db.execSQL("DROP TABLE IF EXISTS admin");
         db.execSQL("DROP TABLE IF EXISTS avisos");
+        db.execSQL("DROP TABLE IF EXISTS horarios_docentes");
 
         onCreate(db);
 

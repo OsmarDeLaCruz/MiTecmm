@@ -44,13 +44,16 @@ public class AvisoDAO {
         Cursor cursor = db.rawQuery("SELECT * FROM avisos ORDER BY idAviso DESC", null);
         if (cursor.moveToFirst()) {
             do {
-                lista.add(new Aviso(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4)
-                ));
+                Aviso aviso = new Aviso(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("idAviso")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("fecha")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("categoria"))
+                );
+
+                aviso.setIdRemoto(cursor.getInt(cursor.getColumnIndexOrThrow("idRemoto")));
+                lista.add(aviso);
             } while (cursor.moveToNext());
         }
         cursor.close();

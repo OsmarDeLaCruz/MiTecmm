@@ -135,7 +135,6 @@
                     android:layout_height="match_parent"
                     android:scrollbars="none"
                     android:fillViewport="true">
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -147,6 +146,12 @@
                             android:id="@+id/tvAvisoBanner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:scrollHorizontally="true"
                             android:text="TRÁMITE: Alumnos de nuevo ingreso"
                             android:textColor="#333333"
                             android:fontFamily="monospace"
@@ -158,15 +163,6 @@
                             android:layout_height="wrap_content"
                             android:text="MANTENIMIENTO: Edificio L"
                             android:textColor="#333333"
-                            android:fontFamily="monospace"
-                            android:textSize="13sp"
-                            android:layout_marginEnd="24dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⚠️ URGENTE: Protocolo de salud"
-                            android:textColor="#D32F2F"
                             android:fontFamily="monospace"
                             android:textSize="13sp"
                             android:layout_marginEnd="24dp"/>
@@ -218,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
-                        
+
                     </LinearLayout>
 
                     <TextView
@@ -282,7 +278,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NUESTRAS CARRERAS_NAV"
+                        android:text="HORARIOS_NAV"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="#111111"

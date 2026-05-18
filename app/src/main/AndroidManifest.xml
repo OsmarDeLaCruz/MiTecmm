@@ -21,6 +21,7 @@
         <activity android:name=".ui.AdminPanelActivity"/>
         <activity android:name=".ui.SugerenciaActivity"/>
         <activity android:name=".ui.DevsActivity"/>
+        <activity android:name=".ui.HorarioActivity" />
 
         <activity
             android:name=".ui.MainActivity"

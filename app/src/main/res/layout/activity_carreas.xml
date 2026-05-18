@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccione Carrera"
+        android:text="Buscar Profesor"
         android:gravity="center"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -50,7 +50,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Explora los programas académicos disponibles en el campus."
+        android:text="Profesores disponibles en el campus."
         android:gravity="center"
         android:textSize="13sp"
         android:textColor="#555555"
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="Busca por nombre de carrera o siglas..."
+                android:hint="Busca por nombre o materia..."
                 android:textSize="14sp"
                 android:layout_marginStart="12dp"
                 android:textColorHint="#888888"

@@ -51,44 +51,61 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/tabGroup"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:id="@+id/scrollTabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/headerAdmin"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/bg_segmented_control"
-        android:padding="4dp"
-        app:checkedButton="@+id/tabCarreras"
-        app:singleSelection="true">
+        android:scrollbars="none"
+        android:fillViewport="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tabCarreras"
-            style="@style/Widget.App.SegmentedButton.Left"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/tabGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CARRERAS" />
+            android:layout_below="@id/headerAdmin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/bg_segmented_control"
+            android:padding="4dp"
+            app:checkedButton="@+id/tabCarreras"
+            app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tabProfesores"
-            style="@style/Widget.App.SegmentedButton.Middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DOCENTES" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabCarreras"
+                style="@style/Widget.App.SegmentedButton.Left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CARRERAS" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tabAvisos"
-            style="@style/Widget.App.SegmentedButton.Right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AVISOS" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabProfesores"
+                style="@style/Widget.App.SegmentedButton.Middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOCENTES" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabAvisos"
+                style="@style/Widget.App.SegmentedButton.Middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AVISOS" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabHorarios"
+                style="@style/Widget.App.SegmentedButton.Right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HORARIOS" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </HorizontalScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabGroup"
+        android:layout_below="@id/scrollTabs"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"

@@ -19,10 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mitecmm.R;
 import com.example.mitecmm.dao.AvisoDAO;
 import com.example.mitecmm.dao.CarreraDAO;
+import com.example.mitecmm.dao.HorarioDAO;
 import com.example.mitecmm.dao.ProfesorDAO;
 import com.example.mitecmm.model.Aviso;
 import com.example.mitecmm.model.Carrera;
+import com.example.mitecmm.model.Horario;
 import com.example.mitecmm.model.Profesor;
+import com.example.mitecmm.repository.AvisosRepository;
+import com.example.mitecmm.repository.HorariosRepository;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -69,15 +73,18 @@ public class AdminPanelActivity extends BaseMActivity {
                     mostrarTab(1);
                 } else if (checkedId == R.id.tabAvisos) {
                     mostrarTab(2);
+                } else if (checkedId == R.id.tabHorarios){
+                    mostrarTab(3);
                 }
             }
         });
 
-        // Configurar Botão FAB (Agregar)
+        // Configurar Boton FAB (Agregar)
         fabAgregar.setOnClickListener(v -> {
             if (currentTab == 0) dialogCarrera(null);
             else if (currentTab == 1) dialogProfesor(null);
             else if (currentTab == 2) dialogAviso(null);
+            else if (currentTab == 3) dialogHorario(null);
         });
 
         // Configurar Menu Lateral
@@ -92,11 +99,10 @@ public class AdminPanelActivity extends BaseMActivity {
         if (tab == 0) cargarCarreras();
         if (tab == 1) cargarProfesores();
         if (tab == 2) cargarAvisos();
+        if (tab == 3) cargarHorarios();
     }
 
-    // ==========================================
-    // LÓGICA DE CARRERAS
-    // ==========================================
+    //Lógica carreras
     private void cargarCarreras() {
         List<Carrera> lista = carreraDAO.showAll();
             AdminCarreraAdapter adapter = new AdminCarreraAdapter(lista);
@@ -143,9 +149,7 @@ public class AdminPanelActivity extends BaseMActivity {
                 .show();
     }
 
-    // ==========================================
-    // LÓGICA DE PROFESORES
-    // ==========================================
+    // Lógica profesores
     private void cargarProfesores() {
         List<Profesor> lista = profesorDAO.showAll();
            AdminProfesorAdapter adapter = new AdminProfesorAdapter(lista);
@@ -192,6 +196,8 @@ public class AdminPanelActivity extends BaseMActivity {
             int idCarrera = carreras.get(spinnerCarrera.getSelectedItemPosition()).getIdCarrera();
             if (profesor == null) {
                 profesorDAO.insertarP(nombre, idCarrera, linkPdf);
+                HorariosRepository repository = new HorariosRepository(this);
+                repository.sincronizar();
             } else {
                 profesorDAO.actualizar(profesor.getIdProfesor(), nombre, idCarrera, linkPdf);
             }
@@ -212,9 +218,7 @@ public class AdminPanelActivity extends BaseMActivity {
                 .show();
     }
 
-    // ==========================================
     // LÓGICA DE AVISOS
-    // ==========================================
     private void cargarAvisos() {
         recyclerView.setAdapter(null);
         List<Aviso> lista = avisoDAO.showAll();
@@ -267,7 +271,11 @@ public class AdminPanelActivity extends BaseMActivity {
                         " | desc=" + descripcion +
                         " | fecha=" + fecha +
                         " | cat=" + categoria);
-                Toast.makeText(this, ok ? "Guardado ✓" : "ERROR al guardar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, ok ? "Guardado " : "ERROR al guardar", Toast.LENGTH_SHORT).show();
+
+                Aviso nuevoAviso = new Aviso(titulo, descripcion, fecha, categoria);
+                AvisosRepository repository = new AvisosRepository(this);
+                repository.subirAviso(nuevoAviso);
             } else {
                 avisoDAO.update(aviso.getIdAviso(), titulo, descripcion, fecha, categoria);
             }
@@ -281,6 +289,9 @@ public class AdminPanelActivity extends BaseMActivity {
                 .setMessage("¿Eliminar el aviso " + a.getTitulo() + "?")
                 .setPositiveButton("Eliminar", (d, w) -> {
                     avisoDAO.delete(a.getIdAviso());
+                    if(a.getIdRemoto() > 0){
+                        new AvisosRepository(this).eliminarAviso(a.getIdRemoto());
+                    }
                     cargarAvisos();
                     Toast.makeText(this, "Aviso eliminado", Toast.LENGTH_SHORT).show();
                 })
@@ -288,9 +299,7 @@ public class AdminPanelActivity extends BaseMActivity {
                 .show();
     }
 
-    // =========================================================================
-    // ADAPTADORES INTERNOS (El motor de las tarjetas bonitas)
-    // =========================================================================
+    // adapters internos
 
     // View Holder Genérico (Liga os IDs do XML item_admin_generic)
     class AdminGenericViewHolder extends RecyclerView.ViewHolder {
@@ -388,6 +397,106 @@ public class AdminPanelActivity extends BaseMActivity {
         public void actualizarDatos(List<Aviso> nuevaLista){
             this.lista = nuevaLista;
             notifyDataSetChanged();
+        }
+
+    }
+
+    //Lógica horarios
+    private void cargarHorarios(){
+        HorarioDAO dao = new HorarioDAO(this);
+        List<Horario> lista = dao.obtenerTodos();
+        AdminHorarioAdapter adapter = new AdminHorarioAdapter(lista);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void dialogHorario(Horario horario){
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_horario, null);
+
+        EditText etDocente = view.findViewById(R.id.etDocenteHorario);
+        EditText etMateria = view.findViewById(R.id.etMateriaHorario);
+        EditText etGrupo = view.findViewById(R.id.etGrupoHorario);
+        EditText etDia = view.findViewById(R.id.etDiaHorario);
+        EditText etInicio = view.findViewById(R.id.etHoraInicioHorario);
+        EditText etFin = view.findViewById(R.id.etHoraFinHorario);
+        EditText etAula = view.findViewById(R.id.etAulaHorario);
+
+        if(horario != null){
+            etDocente.setText(horario.getDocente());
+            etMateria.setText(horario.getMateria());
+            etGrupo.setText(horario.getGrupo());
+            etDia.setText(horario.getDia());
+            etInicio.setText(horario.getHoraInicio());
+            etFin.setText(horario.getHoraFin());
+            etAula.setText(horario.getAula());
+        }
+
+        new AlertDialog.Builder(this).setTitle(horario == null ? "Nuevo horario" : "Editar horario").setView(view).setPositiveButton("Guardar", (d, w) -> {
+            String docente = etDocente.getText().toString().trim();
+            String materia = etMateria.getText().toString().trim();
+            String grupo   = etGrupo.getText().toString().trim();
+            String dia     = etDia.getText().toString().trim();
+            String inicio  = etInicio.getText().toString().trim();
+            String fin     = etFin.getText().toString().trim();
+            String aula    = etAula.getText().toString().trim();
+
+            if (docente.isEmpty() || materia.isEmpty() || dia.isEmpty()) {
+                Toast.makeText(this, "Completa los campos obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            HorariosRepository repo = new HorariosRepository(this);
+
+            if (horario != null) {
+                // Editar en Supabase y sincroniza automáticamente
+                repo.actualizarHorario(horario.getId(), docente, materia, grupo, dia, inicio, fin, aula, () -> runOnUiThread(this::cargarHorarios));
+            }
+            // agregar nuevos horarios se hace subiendo un pdf al profesor segun la tabla de supa,
+            // no manualmente, flujo actual.
+            Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
+        }).setNegativeButton("Cancelar", null).show();
+    }
+
+    private void opcionesHorario(Horario h){
+        new AlertDialog.Builder(this).setTitle("Confirmar").setMessage("¿Eliminar horario de "+h.getDocente()+ " - "+h.getMateria()+"?").setPositiveButton("Eliminar", (d, w)->{
+            new HorariosRepository(this).eliminarHorario(h.getId(), () -> runOnUiThread(this::cargarHorarios));
+            Toast.makeText(this, "Horario eliminado", Toast.LENGTH_SHORT).show();
+        }).setNegativeButton("Cancelar", null).show();
+    }
+
+    //adpater interno
+    class AdminHorarioAdapter extends RecyclerView.Adapter<AdminGenericViewHolder>{
+        List<Horario> lista;
+        public AdminHorarioAdapter(List<Horario> lista){
+            this.lista = lista;
+        }
+
+        @NonNull
+        @Override
+        public AdminGenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_generic, parent, false);
+            return new AdminGenericViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AdminGenericViewHolder holder, int position) {
+            Horario h = lista.get(position);
+            holder.tvTitulo.setText(h.getMateria() + " — " + h.getDocente());
+            holder.tvSubtitulo.setText(
+                    h.getDia() +
+                            " | " +
+                            h.getHoraInicio() +
+                            " → " +
+                            h.getHoraFin() +
+                            " | Aula: " +
+                            h.getAula());
+            holder.imgIcono.setImageResource(android.R.drawable.ic_menu_my_calendar);
+            holder.btnEditar.setOnClickListener(v -> dialogHorario(h));
+            holder.btnEliminar.setOnClickListener(v -> opcionesHorario(h));
+        }
+
+        @Override
+        public int getItemCount() {
+            return lista.size();
         }
     }
 }

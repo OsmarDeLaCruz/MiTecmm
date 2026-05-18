@@ -1,5 +1,6 @@
 package com.example.mitecmm.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,15 @@ public class ProfesorAdapter extends RecyclerView.Adapter<ProfesorAdapter.Profes
     private List<Profesor> listaProfesores;
     private List<Profesor> listaOriginal;
 
-    public ProfesorAdapter(List<Profesor> listaProfesores) {
+    public interface OnProfesorClick{
+        void onClick(Profesor profesor);
+    }
+    private OnProfesorClick listener;
+    public ProfesorAdapter(List<Profesor> listaProfesores, OnProfesorClick listener) {
         this.listaProfesores = listaProfesores;
-
         this.listaOriginal = new ArrayList<>();
         this.listaOriginal.addAll(listaProfesores);
+        this.listener = listener;
     }
 
     @NonNull
@@ -57,6 +62,12 @@ public class ProfesorAdapter extends RecyclerView.Adapter<ProfesorAdapter.Profes
                 holder.tvAvatarProfesor.setText("?");
             }
         }
+
+        holder.itemView.setOnClickListener(v->{
+            //listener.onClick(listaProfesores.get(position));
+
+            //Intent intent = new Intent(v.getContext(), Hora);
+        });
 
         holder.btnVerHorario.setOnClickListener(v -> {
             String linkPdf = profesorActual.getUrlHorario();
